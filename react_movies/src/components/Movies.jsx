@@ -1,4 +1,6 @@
 import { Movie } from './Movie';
+import { Link } from "react-router";
+import chilk from '../assets/chilk.png';
 
 export function Movies(props) {
     const { movies = [] } = props;
@@ -6,9 +8,15 @@ export function Movies(props) {
     return (
         <div className="movies">
             {movies.length ? (
-                movies.map((movie) => <Movie key={movie.imdbID} {...movie} />)
-            ) : (
-                <h4>Not found <img src="../assets/chilk.png" alt="" className='utka' /></h4>
+                movies.map((movie) =>
+                    <Link to={`/movie/${movie.imdbID}`}>
+                        <Movie key={movie.imdbID} {...movie} />
+                    </Link>
+                )) : (
+                <div className='utka_found'>
+                    <h4>Not Found</h4>
+                    <img src={chilk} alt="" />
+                </div>
             )}
         </div>
     );

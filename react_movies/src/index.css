@@ -43,7 +43,13 @@ label:not(:last-child) {
   background-color: yellow;
 }
 
-.utka {
-  height: 40vmin;
-  pointer-events: none;
+.utka_found {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.utka_found img {
+  height: 5vh;
 }

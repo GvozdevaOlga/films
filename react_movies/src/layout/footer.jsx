@@ -4,10 +4,10 @@ export function Footer() {
         <div className="footer-copyright">
             <div className="container">
                 © {new Date().getFullYear()}  
-                 Copyright Text
+                   Copyright Text
                 <a className="grey-text 
                 text-lighten-4 right" 
-                href="#!">by Olga Gvozdeva</a>
+                href="#!"> by Olga Gvozdeva</a>
             </div>
         </div>
     </footer>

@@ -1,38 +1,32 @@
-import React from "react";
-import { Movies } from "../components/Movies";
-import { Search } from "../components/search";
-import { Preloader } from "../components/preloader";
+import React, { useState, useEffect } from "react";
+import { Movies, Preloader, Search } from "../components";
 
-export class Main extends React.Component {
-    state = {
-        movies: [],
-        loading: true,
-    };
-    componentDidMount() {
-        fetch('http://www.omdbapi.com/?apikey=2e84095a&s=matrix')
-            .then((response) => response.json())
-            .then((data) => this.setState({ movies: data.Search, loading: false }));
-    };
+export function Main() {
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    searchMovies = (str, type = "all") => {
-        this.setState({ loading: true });
+    useEffect(() => {
+        fetchMovies("matrix");
+    }, []);
+
+    const fetchMovies = (str, type = "all") => {
+        setLoading(true);
         fetch(
             `http://www.omdbapi.com/?apikey=2e84095a&s=${str}${
-                type !== "all" ? `&type=${type}` : ""
+            type !== "all" ? `&type=${type}` : ""
             }`
         )
-            .then((response) => response.json())
-            .then((data) => this.setState({ movies: data.Search, loading: false }));
+            .then((responce) => responce.json())
+            .then((data) => {
+                setMovies(data.Search || []);
+                setLoading(false);
+            });
     };
 
-    render() {
-        const { movies, loading } = this.state;
-
-        return (
-            <main className="container content">
-                <Search searchMovies={this.searchMovies} />
-                {loading ? <Preloader /> : <Movies movies={movies} />}
-            </main>
-        );
-    }
+    return (
+        <main className="container content">
+            <Search searchMovies={fetchMovies} />
+            {loading ? <Preloader /> : <Movies movies={movies} />}
+        </main>
+    );
 }

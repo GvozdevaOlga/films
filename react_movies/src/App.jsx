@@ -1,14 +1,16 @@
-import React from 'react';
-import {Header} from './layout/header';
-import {Footer} from './layout/footer';
-import {Main} from './layout/main';
+import { Header, Main, MovieDetails, Footer } from './layout';
+import { BrowserRouter as Router, Routes, Route } from "react-router";
+
 
 export default function App() {
   return (
-    <React.Fragment>
+    <Router>
       < Header />
-      < Main />
+      <Routes>
+        <Route path='/' element={<Main />} />
+        <Route path='/movie/:id' element={<MovieDetails />} />
+      </Routes>
       < Footer />
-    </React.Fragment>
+    </Router>
   );
 }
